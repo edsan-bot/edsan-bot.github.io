@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Jacquard+12&family=JetBrains+Mono:wght@400;500;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #080808;
+  color: #f2f2f2;
+  font-family: "JetBrains Mono", monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Efecto de líneas de pantalla */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  z-index: 10;
+}
+
+/* Brillo ambiental */
+body::after {
+  content: "";
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  background: #00ff88;
+  opacity: 0.04;
+  filter: blur(150px);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.main-content {
+  width: min(90%, 600px);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* -------------------------
+   TITULO
+------------------------- */
+
+.title {
+  margin-bottom: 45px;
+}
+
+.title h1 {
+  font-family: "Jacquard 12", cursive;
+  font-size: clamp(4rem, 12vw, 7rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow:
+    3px 0 #00ff88,
+    -3px 0 rgba(0, 255, 136, 0.2);
+}
+
+.title p {
+  margin-top: 18px;
+  color: #777;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.title p::before {
+  content: "> ";
+  color: #00ff88;
+}
+
+/* -------------------------
+   NAVEGACIÓN
+------------------------- */
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.item-list {
+  width: 100%;
+}
+
+.item-list a {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 20px 25px;
+  border: 1px solid #292929;
+  border-radius: 6px;
+  background: #101010;
+  color: #f2f2f2;
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Línea verde que aparece desde la izquierda */
+.item-list a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #00ff88;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+}
+
+/* Flecha */
+.item-list a::after {
+  content: "→";
+  position: absolute;
+  right: 22px;
+  color: #555;
+  transition:
+    right 0.3s ease,
+    color 0.3s ease;
+}
+
+/* INTERACCIÓN */
+
+.item-list a:hover {
+  transform: translateX(8px);
+  border-color: #00ff88;
+  background: #151515;
+  color: #00ff88;
+  box-shadow:
+    0 0 20px rgba(0, 255, 136, 0.08),
+    inset 0 0 20px rgba(0, 255, 136, 0.03);
+}
+
+.item-list a:hover::before {
+  transform: scaleY(1);
+}
+
+.item-list a:hover::after {
+  right: 16px;
+  color: #00ff88;
+}
+
+/* Efecto al hacer click */
+
+.item-list a:active {
+  transform: translateX(12px) scale(0.98);
+}
+
+/* -------------------------
+   RESPONSIVE
+------------------------- */
+
+@media (max-width: 600px) {
+  .main-content {
+    width: 88%;
+  }
+
+  .title {
+    margin-bottom: 35px;
+  }
+
+  .title h1 {
+    font-size: 4rem;
+  }
+
+  .title p {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+  }
+
+  .item-list a {
+    padding: 18px 20px;
+    font-size: 0.75rem;
+  }
+}
