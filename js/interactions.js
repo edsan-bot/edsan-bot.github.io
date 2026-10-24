@@ -105,7 +105,9 @@ export class Interactions {
   }
 
   updateTextMix(x, y) {
-    if (this.reduced || !this.stage.textReady) {
+    // The displaced copy lives in viewport space while the <h1> scrolls with
+    // the document, so the handoff only exists on the cover.
+    if (this.reduced || !this.stage.textReady || window.scrollY > 4) {
       this.stage.setTextMix(0);
       this.title.style.opacity = "1";
       return;
@@ -148,7 +150,10 @@ export class Interactions {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const progress = max > 0 ? window.scrollY / max : 0;
       this.stage.setScroll(progress);
-      this.titleDirty = true;
+      this.updateTitleRect();
+      // Re-evaluate the title handoff: scrolling away must not leave the
+      // DOM layer faded out with the canvas copy off-screen.
+      this.updateTextMix(this.pointer.x, this.pointer.y);
       document.body.classList.toggle("is-scrolled", window.scrollY > 48);
     });
   }

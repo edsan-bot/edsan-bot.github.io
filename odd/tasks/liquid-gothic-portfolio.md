@@ -78,3 +78,10 @@ L8 Known limitation: the site uses ES modules, so it must be served over HTTP (`
 
 L9 Risk: item 3 (contracts others consume) is not touched — the project URLs and names are unchanged. Item 5 (delivery/environment): this is a full rewrite of the published `main` site, deployed by GitHub Pages on merge. No migrations, no stored data, no credentials.
 
+L10 Post-review fixes (after first visual pass):
+- Wave damping was per frame, so ripples died 2.4× faster at 144 Hz. Now `pow(0.994, dt*60)`.
+- The displaced title lives in viewport space while the `<h1>` scrolls, which produced a ghost title after scrolling with the pointer over the cover. The handoff is now disabled above 4 px of scroll; the DOM layer always returns to opacity 1.
+- Colophon credit contrast was 2.3:1 (fails AA). Raised to `#7a7a7a` / `#9a9a9a` on `#050505` (≈4.8:1).
+- Added `README.md` and `.gitattributes` (`text=auto eol=lf`) to stop CRLF churn on Windows.
+
+

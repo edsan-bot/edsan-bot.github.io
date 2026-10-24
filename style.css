@@ -616,16 +616,16 @@ body.is-scrolled .hud {
 .colophon__credit {
   font-size: 0.62rem;
   letter-spacing: 0.04em;
-  color: #4a4a4a;
+  color: #7a7a7a;
 }
 
 .colophon__credit em {
   font-style: italic;
-  color: #5e5e5e;
+  color: #8a8a8a;
 }
 
 .colophon__credit a {
-  color: #6a6a6a;
+  color: #9a9a9a;
   text-underline-offset: 3px;
 }
 

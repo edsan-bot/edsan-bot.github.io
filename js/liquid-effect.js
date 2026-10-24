@@ -358,7 +358,9 @@ export class LiquidStage {
     this.simUniforms.uPoint.value.copy(this.pointer);
     this.simUniforms.uStrength.value =
       clamp(speed * 0.14, 0, 0.22) * delta * 60 + this.clickImpulse;
-    this.simUniforms.uDamping.value = this.reducedMotion ? 0.9 : 0.994;
+    // Damping is per frame, so it has to be normalised to 60 Hz or ripples
+    // die 2.4x faster on a 144 Hz display.
+    this.simUniforms.uDamping.value = this.reducedMotion ? 0.9 : Math.pow(0.994, delta * 60);
 
     this.compositeUniforms.uTime.value = this.time;
     this.compositeUniforms.uEntrance.value = this.entrance;
