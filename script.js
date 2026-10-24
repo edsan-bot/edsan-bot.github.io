@@ -47,7 +47,10 @@ async function boot() {
   };
 
   // The glyphs are only measurable once the CSS entrance stops transforming them.
-  afterEntrance(paintTitle);
+  afterEntrance(() => {
+    paintTitle();
+    title.classList.add("is-settled");
+  });
 
   let resizeTimer;
   window.addEventListener(

@@ -16,6 +16,7 @@ export class Interactions {
     this.titleDirty = true;
     this.running = false;
     this.fragValue = 0;
+    this.lastFrame = 0;
 
     this.onPointerMove = this.onPointerMove.bind(this);
     this.onPointerDown = this.onPointerDown.bind(this);
@@ -163,20 +164,25 @@ export class Interactions {
     this.updateTitleRect();
   }
 
-  frame() {
+  frame(timestamp) {
     if (!this.running) return;
-    const delta = 1 / 60;
 
-    // Cursor easing: the ring trails the native pointer slightly.
-    this.cursorPos.x += (this.pointer.x - this.cursorPos.x) * 0.22;
-    this.cursorPos.y += (this.pointer.y - this.cursorPos.y) * 0.22;
+    const now = timestamp ?? performance.now();
+    const delta = Math.min((now - this.lastFrame) / 1000, 0.05) || 1 / 60;
+    this.lastFrame = now;
+
+    // Frame-rate independent easing: identical feel at 60 and 144 Hz.
+    const easing = 1 - Math.exp(-delta * 14);
+
+    this.cursorPos.x += (this.pointer.x - this.cursorPos.x) * easing;
+    this.cursorPos.y += (this.pointer.y - this.cursorPos.y) * easing;
 
     if (this.cursor) {
       this.cursor.style.transform = `translate3d(${this.cursorPos.x}px, ${this.cursorPos.y}px, 0)`;
     }
 
     if (this.fragValue > 0.001) {
-      this.fragValue *= 0.94;
+      this.fragValue *= Math.pow(0.94, delta * 60);
       this.stage.setFrag(this.fragValue);
     } else if (this.fragValue !== 0) {
       this.fragValue = 0;

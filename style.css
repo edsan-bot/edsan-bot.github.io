@@ -356,6 +356,11 @@ body.is-scrolled .hud {
   width: 0.22em;
 }
 
+/* Release the compositor layers once the entrance has played. */
+.hero__title.is-settled .char {
+  will-change: auto;
+}
+
 @keyframes char-rise {
   from {
     opacity: 0;
@@ -615,6 +620,14 @@ body.is-scrolled .hud {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 65%);
 }
 
+.card:active {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0) 65%);
+}
+
+.card.is-pending:active {
+  background: transparent;
+}
+
 .card.is-pending {
   cursor: default;
   color: var(--ash);
@@ -713,6 +726,33 @@ html.reveal-ready .gallery__item.is-in,
 html.reveal-ready .colophon.is-in {
   opacity: 1;
   transform: none;
+}
+
+/* ---------------------------------------------------------
+   Native scroll surface
+   --------------------------------------------------------- */
+
+html {
+  scrollbar-color: #242424 #050505;
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #242424;
+  border: 3px solid #050505;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a3a3a;
 }
 
 /* ---------------------------------------------------------

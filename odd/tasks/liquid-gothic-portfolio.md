@@ -92,4 +92,12 @@ L11 Beauty pass (second delivery):
 - Hero gains a base gradient so the composition sinks into the void and the scroll cue sits on black.
 - Subtitle raised to `#a3a3a3` for contrast over the skull.
 
+L12 Final finish (third delivery):
+- Social card generated from the real cover at 1200×630 (`assets/images/og-cover.jpg`, 78 KB) and wired as `og:image`/`twitter:image` with alt text, width and height.
+- Custom monochrome scrollbar (Chromium + `scrollbar-width` fallback).
+- Card press feedback (`:active`), isolated from pending rows.
+- `will-change` released on the title glyphs once the entrance settles (`is-settled`).
+- Cursor easing and letter-fragment decay made frame-rate independent (`pow(0.94, dt*60)`), matching the wave damping fix.
+- `role="list"` on the gallery (Safari drops list semantics with `list-style: none`).
+
 
