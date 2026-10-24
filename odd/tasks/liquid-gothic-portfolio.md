@@ -40,6 +40,15 @@ S16. Accessibility: semantic HTML, real links, keyboard navigation, visible focu
 | T7 | Fallback + reduced motion + performance guards | S14, S15, S16 | inline | done |
 | T8 | Verification: headless screenshots, console, links, responsive | all | inline | done |
 
+## Commits
+
+| Work unit | Commit |
+|-----------|--------|
+| Assets, tooling, delivery doc | `723c6de` |
+| Cover and gallery composition | `e2e301c` |
+| WebGL wave engine and shaders | `a55dbd9` |
+| Task log close | see the commit that adds this line |
+
 ## Log
 
 L1 (verbatim request, 2026-10-23): "Propon y desarrolla lo mejor para este proyecto, si tienes que buscar bien en cada repositorio haz y te doy luz verde para que tomes buenas decisiones para cada una que tengamos que hacer."
