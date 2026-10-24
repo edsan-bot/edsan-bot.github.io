@@ -72,6 +72,26 @@ img {
   color: var(--ink);
 }
 
+/* Film grain over the whole surface: unifies the canvas and the DOM type.
+   `overlay` keeps the deep black intact instead of lifting it. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.038;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+}
+
+@media (pointer: coarse) {
+  body::after {
+    display: none;
+  }
+}
+
 /* ---------------------------------------------------------
    Stage
    --------------------------------------------------------- */
@@ -280,6 +300,24 @@ body.is-scrolled .hud {
   overflow: hidden;
 }
 
+/* Poster base: the composition sinks into the void at the fold. */
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--ink) 0%,
+    rgba(5, 5, 5, 0.72) 38%,
+    rgba(5, 5, 5, 0) 100%
+  );
+}
+
 .hero__kicker {
   font-family: var(--mono);
   font-size: clamp(0.6rem, 1.1vw, 0.72rem);
@@ -340,7 +378,7 @@ body.is-scrolled .hud {
   font-size: clamp(0.78rem, 1.2vw, 0.92rem);
   line-height: 1.65;
   letter-spacing: 0.02em;
-  color: var(--ash);
+  color: #a3a3a3;
   animation: fade-up 1.2s var(--ease-out) 1.15s both;
 }
 
@@ -362,6 +400,7 @@ body.is-scrolled .hud {
   left: 50%;
   bottom: clamp(1.6rem, 4vh, 3rem);
   transform: translateX(-50%);
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -471,25 +510,29 @@ body.is-scrolled .hud {
 .card {
   position: relative;
   display: grid;
-  grid-template-columns: 3.2rem 1fr auto;
+  grid-template-columns: clamp(3.4rem, 7vw, 6.2rem) 1fr auto;
   align-items: center;
-  gap: clamp(0.8rem, 2.4vw, 2rem);
-  padding: clamp(1.5rem, 3.6vw, 2.5rem) clamp(0.6rem, 2vw, 1.4rem);
+  gap: clamp(1rem, 3vw, 2.6rem);
+  padding: clamp(1.9rem, 4.4vw, 3rem) clamp(0.6rem, 2vw, 1.4rem);
   color: var(--bone-soft);
   text-decoration: none;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.022), rgba(255, 255, 255, 0) 55%);
+  background: transparent;
   transition:
     color 0.4s ease,
     background 0.5s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
+/* The catalogue number is a graphic mark, not a label. */
 .card__index {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  color: var(--ash);
-  transition: color 0.4s ease;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 5.6vw, 4.4rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.17);
+  transition:
+    color 0.5s ease,
+    transform 0.7s var(--ease-out);
 }
 
 .card__body {
@@ -547,7 +590,11 @@ body.is-scrolled .hud {
 }
 
 .card:hover .card__index,
-.card:focus-visible .card__index,
+.card:focus-visible .card__index {
+  color: rgba(255, 255, 255, 0.55);
+  transform: translateX(4px);
+}
+
 .card:hover .card__meta,
 .card:focus-visible .card__meta {
   color: var(--bone);
@@ -565,12 +612,16 @@ body.is-scrolled .hud {
 
 .card:hover,
 .card:focus-visible {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 70%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 65%);
 }
 
 .card.is-pending {
   cursor: default;
   color: var(--ash);
+}
+
+.card.is-pending .card__index {
+  color: rgba(255, 255, 255, 0.09);
 }
 
 .card.is-pending .card__title {
@@ -724,14 +775,15 @@ html.reveal-ready .colophon.is-in {
 
 @media (max-width: 560px) {
   .card {
-    grid-template-columns: 2.2rem 1fr;
+    grid-template-columns: 2.6rem 1fr;
     gap: 0.9rem;
-    padding: 1.4rem 0.4rem;
+    padding: 1.35rem 0.4rem;
   }
 
   .card__index {
+    font-size: 1.9rem;
     align-self: flex-start;
-    padding-top: 0.55rem;
+    padding-top: 0.1rem;
   }
 
   .card__title {

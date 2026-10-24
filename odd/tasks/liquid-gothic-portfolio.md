@@ -78,10 +78,18 @@ L8 Known limitation: the site uses ES modules, so it must be served over HTTP (`
 
 L9 Risk: item 3 (contracts others consume) is not touched — the project URLs and names are unchanged. Item 5 (delivery/environment): this is a full rewrite of the published `main` site, deployed by GitHub Pages on merge. No migrations, no stored data, no credentials.
 
-L10 Post-review fixes (after first visual pass):
+L10 Post-review fixes (after the first visual pass):
 - Wave damping was per frame, so ripples died 2.4× faster at 144 Hz. Now `pow(0.994, dt*60)`.
 - The displaced title lives in viewport space while the `<h1>` scrolls, which produced a ghost title after scrolling with the pointer over the cover. The handoff is now disabled above 4 px of scroll; the DOM layer always returns to opacity 1.
 - Colophon credit contrast was 2.3:1 (fails AA). Raised to `#7a7a7a` / `#9a9a9a` on `#050505` (≈4.8:1).
 - Added `README.md` and `.gitattributes` (`text=auto eol=lf`) to stop CRLF churn on Windows.
+
+L11 Beauty pass (second delivery):
+- Evaluated real thumbnails and rejected them: both pieces are near-black canvases (two 24 px circles; a sparse dot grid), so at card size they read as empty rectangles. Captured at 2× and auto-cropped to verify, not assumed.
+- Instead the gallery became a catalogue: the mono index was replaced by a large blackletter numeral at 17% opacity that brightens and shifts on hover, rows gained air, and the resting background gradient was removed (it stacked into a visible panel across the four rows).
+- Added film grain over the whole surface (`overlay`, 3.8%, disabled on coarse pointers) so DOM type and canvas share one texture without lifting the deep black.
+- Soft saturation on the wave refraction so no glyph is ever destroyed.
+- Hero gains a base gradient so the composition sinks into the void and the scroll cue sits on black.
+- Subtitle raised to `#a3a3a3` for contrast over the skull.
 
 

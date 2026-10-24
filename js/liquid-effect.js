@@ -133,7 +133,7 @@ export class LiquidStage {
       uFocusAmount: { value: 0 },
       uSkullZoom: { value: 1.0 },
       uSkullAspect: { value: 1.5 },
-      uGrain: { value: 0.045 },
+      uGrain: { value: 0.03 },
     };
 
     this.compositeMaterial = new THREE.ShaderMaterial({

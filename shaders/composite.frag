@@ -90,7 +90,7 @@ void main() {
   vec2 inkUv = (uv + refraction * 2.4) * vec2(uAspect * 1.5, 1.0) * 2.2;
   inkUv += vec2(uTime * 0.011, -uTime * 0.017);
   float ink = fbm(inkUv);
-  float inkLevel = 0.010 + 0.042 * smoothstep(0.1, 0.8, uScroll) + inFocus * uFocusAmount * 0.1;
+  float inkLevel = 0.016 + 0.05 * smoothstep(0.1, 0.8, uScroll) + inFocus * uFocusAmount * 0.1;
 
   vec3 color = vec3(0.012 + ink * inkLevel);
 
@@ -131,7 +131,7 @@ void main() {
 
   float skullAlpha = smoothstep(0.03, 0.42, shaded) * mask * (1.0 - 0.86 * scrim);
   // The lower third dissolves into the void instead of ending in a bone pile.
-  skullAlpha *= smoothstep(0.02, 0.34, uv.y);
+  skullAlpha *= smoothstep(0.04, 0.38, uv.y);
   // With scroll the skull recedes so the gallery can breath.
   skullAlpha *= 1.0 - 0.82 * smoothstep(0.02, 0.34, uScroll);
   vec3 skullColor = vec3(0.42 * shaded + specular * 0.16);
