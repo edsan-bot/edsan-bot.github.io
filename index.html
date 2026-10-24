@@ -1,40 +1,184 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portafolio de Santiago Cabrera</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main class="main-content">
-      <header class="title">
-        <h1>Santiago Cabrera</h1>
-        <p>Portafolios Código Creativo</p>
-      </header>
+    <title>Santiago Cabrera — Portafolio / Código Creativo</title>
+    <meta
+      name="description"
+      content="Portafolio de código creativo de Santiago Cabrera. Experimentos digitales interactivos: distorsión líquida, tipografía y WebGL."
+    />
+    <meta name="theme-color" content="#050505" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://edsan-bot.github.io/" />
 
-      <nav>
-        <ul>
-          <li class="item-list">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Santiago Cabrera — Portafolio / Código Creativo" />
+    <meta
+      property="og:description"
+      content="Exposición digital de código creativo. Distorsión líquida, tipografía blackletter y experimentos interactivos."
+    />
+    <meta property="og:url" content="https://edsan-bot.github.io/" />
+    <meta property="og:image" content="https://edsan-bot.github.io/assets/images/skull-800.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050505'/%3E%3Ccircle cx='16' cy='15' r='8.5' fill='none' stroke='%23fff' stroke-width='1.4'/%3E%3Ccircle cx='12.6' cy='13.6' r='2.1' fill='%23fff'/%3E%3Ccircle cx='19.4' cy='13.6' r='2.1' fill='%23fff'/%3E%3Cpath d='M14 20h4v3h-4z' fill='%23fff'/%3E%3C/svg%3E"
+    />
+
+    <link rel="preload" href="assets/fonts/pirata-one-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="style.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+        }
+      }
+    </script>
+    <script type="module" src="script.js"></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#proyectos">Saltar a los proyectos</a>
+
+    <!-- Static skull: fallback when WebGL is unavailable, texture source otherwise -->
+    <div class="scene" aria-hidden="true">
+      <img
+        id="skull-source"
+        class="scene__skull"
+        src="assets/images/skull-1600.jpg"
+        width="1600"
+        height="1067"
+        alt=""
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
+
+    <!-- Liquid stage: one canvas for the whole composition -->
+    <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+
+    <div class="cursor" id="cursor" aria-hidden="true">
+      <span class="cursor__ring"></span>
+      <span class="cursor__dot"></span>
+    </div>
+
+    <header class="hud" aria-hidden="true">
+      <span class="hud__item hud__item--tl">SANTIAGO CABRERA</span>
+      <span class="hud__item hud__item--tr">CUENCA / ECUADOR</span>
+      <span class="hud__item hud__item--bl">CREATIVE CODING</span>
+      <span class="hud__item hud__item--br">DIGITAL EXPERIMENTS</span>
+    </header>
+
+    <main class="page">
+      <section class="hero" id="inicio">
+        <p class="hero__kicker">PORTAFOLIO / CÓDIGO CREATIVO</p>
+
+        <h1 class="hero__title" data-text="Santiago Cabrera" aria-label="Santiago Cabrera">
+          <span class="char" aria-hidden="true" style="--i: 0">S</span
+          ><span class="char" aria-hidden="true" style="--i: 1">a</span
+          ><span class="char" aria-hidden="true" style="--i: 2">n</span
+          ><span class="char" aria-hidden="true" style="--i: 3">t</span
+          ><span class="char" aria-hidden="true" style="--i: 4">i</span
+          ><span class="char" aria-hidden="true" style="--i: 5">a</span
+          ><span class="char" aria-hidden="true" style="--i: 6">g</span
+          ><span class="char" aria-hidden="true" style="--i: 7">o</span
+          ><span class="char char--space" aria-hidden="true" style="--i: 8">&nbsp;</span
+          ><span class="char" aria-hidden="true" style="--i: 9">C</span
+          ><span class="char" aria-hidden="true" style="--i: 10">a</span
+          ><span class="char" aria-hidden="true" style="--i: 11">b</span
+          ><span class="char" aria-hidden="true" style="--i: 12">r</span
+          ><span class="char" aria-hidden="true" style="--i: 13">e</span
+          ><span class="char" aria-hidden="true" style="--i: 14">r</span
+          ><span class="char" aria-hidden="true" style="--i: 15">a</span>
+        </h1>
+
+        <p class="hero__sub">Exposición digital interactiva de código creativo</p>
+
+        <a class="scroll-cue" href="#proyectos">
+          <span class="scroll-cue__label">Desplazar</span>
+          <span class="scroll-cue__line" aria-hidden="true"><span class="scroll-cue__dot"></span></span>
+        </a>
+      </section>
+
+      <section class="gallery" id="proyectos" aria-labelledby="gallery-title">
+        <div class="gallery__head">
+          <h2 class="gallery__title" id="gallery-title">Proyectos</h2>
+          <span class="gallery__count">04 piezas</span>
+        </div>
+
+        <ul class="gallery__list">
+          <li class="gallery__item">
             <a
+              class="card"
               href="https://edsan-bot.github.io/pelota-que-rebota/"
               target="_blank"
               rel="noopener noreferrer"
-              >Pelota que rebota</a
             >
+              <span class="card__index" aria-hidden="true">01</span>
+              <span class="card__body">
+                <span class="card__title">Pelota que rebota</span>
+                <span class="card__meta">Abrir experimento<span class="card__arrow" aria-hidden="true">↗</span></span>
+              </span>
+              <span class="card__rule" aria-hidden="true"></span>
+            </a>
           </li>
-          <li class="item-list">
+
+          <li class="gallery__item">
             <a
+              class="card"
               href="https://edsan-bot.github.io/Interaccion_manos/"
               target="_blank"
               rel="noopener noreferrer"
-              >Interaccion con las manos</a
             >
+              <span class="card__index" aria-hidden="true">02</span>
+              <span class="card__body">
+                <span class="card__title">Interacción con las manos</span>
+                <span class="card__meta">Abrir experimento<span class="card__arrow" aria-hidden="true">↗</span></span>
+              </span>
+              <span class="card__rule" aria-hidden="true"></span>
+            </a>
           </li>
-          <li class="item-list"><a href="#">Proyecto 3</a></li>
-          <li class="item-list"><a href="#">Proyecto 4</a></li>
+
+          <li class="gallery__item">
+            <div class="card is-pending">
+              <span class="card__index" aria-hidden="true">03</span>
+              <span class="card__body">
+                <span class="card__title">Proyecto 3</span>
+                <span class="card__meta">Pendiente</span>
+              </span>
+              <span class="card__rule" aria-hidden="true"></span>
+            </div>
+          </li>
+
+          <li class="gallery__item">
+            <div class="card is-pending">
+              <span class="card__index" aria-hidden="true">04</span>
+              <span class="card__body">
+                <span class="card__title">Proyecto 4</span>
+                <span class="card__meta">Pendiente</span>
+              </span>
+              <span class="card__rule" aria-hidden="true"></span>
+            </div>
+          </li>
         </ul>
-      </nav>
+      </section>
+
+      <footer class="colophon">
+        <div class="colophon__marks">
+          <span>SANTIAGO CABRERA</span>
+          <span>CREATIVE CODING</span>
+          <span>DIGITAL EXPERIMENTS</span>
+          <span>CUENCA / ECUADOR</span>
+        </div>
+        <p class="colophon__credit">
+          Imagen de fondo: <em>Catacombs of Paris</em>, Richard Munckton —
+          <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a>.
+        </p>
+      </footer>
     </main>
+
   </body>
 </html>
